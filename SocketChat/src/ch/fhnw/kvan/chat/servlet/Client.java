@@ -1,14 +1,17 @@
-package ch.fhnw.kvan.chat.socket.client;
+package ch.fhnw.kvan.chat.servlet;
 
 import java.io.IOException;
 
 import ch.fhnw.kvan.chat.gui.ClientGUI;
-import ch.fhnw.kvan.chat.socket.server.Server;
+import ch.fhnw.kvan.chat.servlet.Server;
+
+import org.apache.log4j.Logger;
 
 public class Client {
 	private String name;
 	private String host;
 	private int port;
+	private Logger logger;
 
 	public static void main(String[] args) throws IOException {
 		System.out.println("Client instance started!");
@@ -26,7 +29,8 @@ public class Client {
 			
 			Server chatRoom = new Server();
 			chatRoom.connect(client.getHost(), client.getPort());
-			ClientGUI gui = new ClientGUI(chatRoom, client.name);
+			ClientGUI clientGui = new ClientGUI(chatRoom, client.name);
+			clientGui.addParticipant(client.name);
 			
 		} catch (Exception e) {
 			throw new IOException("Missing arguments in client constructor.");
@@ -38,6 +42,7 @@ public class Client {
 		this.name = n;
 		this.host = h;
 		this.port = p;
+		logger = Logger.getLogger(Client.class);
 	}
 
 	public String getName() {

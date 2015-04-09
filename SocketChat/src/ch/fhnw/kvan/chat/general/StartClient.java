@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2000-2009 Fachhochschule Nordwestschweiz (FHNW)
- * All Rights Reserved. 
+ * All Rights Reserved.
  */
 
 package ch.fhnw.kvan.chat.general;
@@ -18,20 +18,20 @@ import ch.fhnw.kvan.chat.socket.client.Client;
  * runtime parameter the name of the class which implements the
  * <code>Client</code> class has to be specified. This class is then
  * loaded and its main() method invoked, using corresponding arguments.
- * 
- * E.g. start the application with one of the following commands, which are defined in the Clients.txt file. 
- * 
+ *
+ * E.g. start the application with one of the following commands, which are defined in the Clients.txt file.
+ *
  * <pre>
  * ch.fhnw.kvan.chat.socket.client.Client localhost 1234 <user name>
  * ch.fhnw.kvan.chat.servlet.Client localhost:8080/chat/Server <user name>
  * </pre>
- * 
- * @see Client 
- * @author  © ibneco, Rheinfelden; based on code by Dominik Gruntz
+ *
+ * @see Client
+ * @author  ï¿½ ibneco, Rheinfelden; based on code by Dominik Gruntz
  * @version
  */
 public class StartClient {
-	
+
 	private static Logger logger;
 
 	public static void main(String args[]) {
@@ -39,7 +39,7 @@ public class StartClient {
 		logger = Logger.getLogger(StartClient.class);
 		// Set up a simple configuration that logs on the console
 		BasicConfigurator.configure();
-				
+
 		if (args.length < 1) {
 			logger.error("Usage: java " + StartClient.class.getName()
 					+ " <class>");
@@ -55,17 +55,17 @@ public class StartClient {
 			// communication via socket: package name contains "socket"
 			if (args[0].contains("socket")) {
 				// prepare right parameters
-				String[] params = {args[3], args[1], args[2]}; 
+				String[] params = {args[3], args[1], args[2]};
 				// invoke main()
 				meth.invoke(null, (Object) params);
 			}
 			// communication via servlet: package name contains "servlet"
 			else if (args[0].contains("servlet")) {
 				// prepare right parameters
-				String[] params = {args[2], args[1]}; 
+				String[] params = {args[2], args[1]};
 				// invoke main()
 				meth.invoke(null, (Object) params);
-				} 		    
+				}
 		} catch (ClassNotFoundException e) {
 			logger.error("class " + args[0] + " could not be found");
 			System.exit(1);
