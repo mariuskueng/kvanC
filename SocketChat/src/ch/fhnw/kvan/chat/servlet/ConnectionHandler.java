@@ -1,5 +1,5 @@
 package ch.fhnw.kvan.chat.servlet;
 
-public class Server {
+public class ConnectionHandler {
 
 }

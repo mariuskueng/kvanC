@@ -1,4 +1,4 @@
-package ch.fhnw.kvan.chat.servlet;
+package ch.fhnw.kvan.chat.socket.server;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -24,13 +24,13 @@ public class ConnectionListener implements Runnable {
         while (true) {
             Socket s;
             logger.info("ConnectionListener started...");
-			try {
-				s = serverSocket.accept();
-				System.out.println("End serving " + s);
-	            s.close();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+            try {
+                s = serverSocket.accept();
+                System.out.println("End serving " + s);
+                s.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 }

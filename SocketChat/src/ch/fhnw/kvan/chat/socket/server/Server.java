@@ -1,16 +1,29 @@
 package ch.fhnw.kvan.chat.socket.server;
 
 import java.io.IOException;
+import java.net.ServerSocket;
 
 import ch.fhnw.kvan.chat.interfaces.IChatDriver;
 import ch.fhnw.kvan.chat.interfaces.IChatRoom;
+import ch.fhnw.kvan.chat.socket.server.ConnectionListener;
 
 public class Server implements IChatRoom, IChatDriver{
 
 	@Override
 	public void connect(String host, int port) throws IOException {
-		// TODO Auto-generated method stub
-		
+		try{
+
+			ServerSocket serverSocket = new ServerSocket(port);
+			ConnectionListener connectionListener = new ConnectionListener(serverSocket);
+			System.out.println("New connectionListener instance on port " + port);
+			Thread serverConnectionThread = new Thread(connectionListener);
+
+			serverConnectionThread.start();
+
+		} catch (IOException e) {
+			System.out.println("Could not listen on port " + port);
+			System.exit(-1);
+		}
 	}
 
 	@Override
