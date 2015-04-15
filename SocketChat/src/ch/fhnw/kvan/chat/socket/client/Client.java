@@ -1,14 +1,21 @@
 package ch.fhnw.kvan.chat.socket.client;
 
 import java.io.IOException;
+import java.net.Socket;
 
 import ch.fhnw.kvan.chat.gui.ClientGUI;
-import ch.fhnw.kvan.chat.socket.server.Server;
+import ch.fhnw.kvan.chat.utils.Out;
+import com.sun.tools.corba.se.idl.InterfaceGen;
 
 public class Client {
 	private String name;
 	private String host;
 	private int port;
+	private ClientGUI gui;
+	private ClientMessageSender chatRoom;
+
+	private Out outputStream;
+	private Socket socket;
 
 	public static void main(String[] args) throws IOException {
 		System.out.println("Client instance started!");
@@ -19,15 +26,7 @@ public class Client {
 		
 		try {
 			Client client = new Client(args[0], args[1], Integer.parseInt(args[2]));
-			
-			System.out.println(client.getName());
-			System.out.println(client.getHost());
-			System.out.println(client.getPort());
-			
-			Server chatRoom = new Server();
-			chatRoom.connect(client.getHost(), client.getPort());
-			ClientGUI gui = new ClientGUI(chatRoom, client.name);
-			
+
 		} catch (Exception e) {
 			throw new IOException("Missing arguments in client constructor.");
 		}
@@ -38,6 +37,16 @@ public class Client {
 		this.name = n;
 		this.host = h;
 		this.port = p;
+
+		try {
+			this.socket = new Socket(this.host, port);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		this.outputStream = new Out(this.socket);
+		this.chatRoom = new ClientMessageSender(this.name, this.outputStream);
+		// chatRoom.connect(client.getHost(), client.getPort());
+		ClientGUI gui = new ClientGUI(chatRoom, this.name);
 	}
 
 	public String getName() {
