@@ -6,18 +6,25 @@ import java.net.ServerSocket;
 import ch.fhnw.kvan.chat.interfaces.IChatDriver;
 import ch.fhnw.kvan.chat.interfaces.IChatRoom;
 import ch.fhnw.kvan.chat.socket.server.ConnectionListener;
+import org.apache.log4j.Logger;
 
 public class Server implements IChatRoom, IChatDriver{
+
+	private Logger logger;
+	private ServerSocket serverSocket;
+
+	public Server() {
+		logger = Logger.getLogger(Server.class);
+	}
 
 	@Override
 	public void connect(String host, int port) throws IOException {
 		try{
-
-			ServerSocket serverSocket = new ServerSocket(port);
+			serverSocket = new ServerSocket(port);
 			ConnectionListener connectionListener = new ConnectionListener(serverSocket);
-			System.out.println("New connectionListener instance on port " + port);
-			Thread serverConnectionThread = new Thread(connectionListener);
+			logger.info("New connectionListener instance on port " + port);
 
+			Thread serverConnectionThread = new Thread(connectionListener);
 			serverConnectionThread.start();
 
 		} catch (IOException e) {
@@ -28,8 +35,9 @@ public class Server implements IChatRoom, IChatDriver{
 
 	@Override
 	public void disconnect() throws IOException {
-		// TODO Auto-generated method stub
-		
+		if (serverSocket != null) {
+			serverSocket.close();
+		}
 	}
 
 	@Override
