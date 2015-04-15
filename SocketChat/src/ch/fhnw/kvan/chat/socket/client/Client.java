@@ -5,7 +5,7 @@ import java.net.Socket;
 
 import ch.fhnw.kvan.chat.gui.ClientGUI;
 import ch.fhnw.kvan.chat.utils.Out;
-import com.sun.tools.corba.se.idl.InterfaceGen;
+import org.apache.log4j.Logger;
 
 public class Client {
 	private String name;
@@ -18,7 +18,8 @@ public class Client {
 	private Socket socket;
 
 	public static void main(String[] args) throws IOException {
-		System.out.println("Client instance started!");
+		Logger logger = Logger.getLogger(ClientMessageSender.class);
+		logger.info("Client instance started");
 		
 		if (args.length != 3) {
 			throw new IOException("More or less args given.");
@@ -45,7 +46,13 @@ public class Client {
 		}
 		this.outputStream = new Out(this.socket);
 		this.chatRoom = new ClientMessageSender(this.name, this.outputStream);
-		// chatRoom.connect(client.getHost(), client.getPort());
+
+		try {
+			chatRoom.addParticipant(this.name);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
 		ClientGUI gui = new ClientGUI(chatRoom, this.name);
 	}
 
