@@ -7,25 +7,22 @@ import org.apache.log4j.Logger;
 
 public class Server {
 
-	private Logger logger;
-	private ServerSocket serverSocket;
-
-	public Server() {
-		logger = Logger.getLogger(Server.class);
-	}
+	private static final int SERVER_PORT = 1235;
 
 	public static void main (String[] args) {
 
-		try{
-			serverSocket = new ServerSocket(port);
+		try {
+			ServerSocket serverSocket = new ServerSocket(SERVER_PORT);
 			ConnectionListener connectionListener = new ConnectionListener(serverSocket);
-			logger.info("New connectionListener instance on port " + port);
+
+			Logger logger = Logger.getLogger(Server.class);
+			logger.info("New connectionListener instance on port " + SERVER_PORT);
 
 			Thread serverConnectionThread = new Thread(connectionListener);
 			serverConnectionThread.start();
 
 		} catch (IOException e) {
-			System.out.println("Could not listen on port " + port);
+			System.out.println("Could not listen on port " + SERVER_PORT);
 		}
 
 	}
