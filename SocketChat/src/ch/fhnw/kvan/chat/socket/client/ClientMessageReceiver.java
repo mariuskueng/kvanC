@@ -15,6 +15,7 @@ public class ClientMessageReceiver implements Runnable {
     public ClientMessageReceiver (In inputStream, ClientGUI gui) {
         this.inputStream = inputStream;
         this.gui = gui;
+        this.logger = Logger.getLogger(ClientMessageReceiver.class);
 
         Thread serverListener = new Thread(this);
         serverListener.start();
