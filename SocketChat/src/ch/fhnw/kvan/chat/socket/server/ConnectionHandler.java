@@ -50,6 +50,7 @@ public class ConnectionHandler implements Runnable {
     }
 
     public void processMessage(String message) throws IOException {
+
         String action = message.split("=")[0];
         String content = message.split("=")[1];
 
@@ -71,8 +72,7 @@ public class ConnectionHandler implements Runnable {
                 break;
 
             case "message":
-                System.out.println(content);
-                chat.addMessage("", content);
+                chat.addMessage(message.split(";")[0].split("=")[0], message.split(";")[1].split("=")[0]);
                 break;
 
             case "get_topics":

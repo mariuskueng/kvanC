@@ -56,8 +56,7 @@ public class ClientMessageReceiver implements Runnable {
                 break;
 
             case "message":
-                System.out.println(content);
-                gui.addMessage(content);
+                gui.addMessage(message.split(";")[0].split("=")[1]);
                 break;
 
             case "get_topics":
