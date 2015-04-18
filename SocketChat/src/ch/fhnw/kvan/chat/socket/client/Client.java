@@ -61,8 +61,6 @@ public class Client {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
-		ClientGUI gui = new ClientGUI(chatRoom, this.name);
 	}
 
 	public String getName() {
