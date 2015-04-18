@@ -5,6 +5,7 @@ import java.net.Socket;
 
 import ch.fhnw.kvan.chat.gui.ClientGUI;
 import ch.fhnw.kvan.chat.utils.Out;
+import ch.fhnw.kvan.chat.utils.In;
 import org.apache.log4j.Logger;
 
 public class Client {
@@ -13,8 +14,10 @@ public class Client {
 	private int port;
 	private ClientGUI gui;
 	private ClientMessageSender chatRoom;
+	private ClientMessageReceiver clientReceiver;
 
 	private Out outputStream;
+	private In inputStream;
 	private Socket socket;
 
 	public static void main(String[] args) throws IOException {
@@ -45,10 +48,14 @@ public class Client {
 			e.printStackTrace();
 		}
 		this.outputStream = new Out(this.socket);
+		this.inputStream = new In(this.socket);
 		this.chatRoom = new ClientMessageSender(this.name, this.outputStream);
+		this.clientReceiver = new ClientMessageReceiver(this.inputStream, this.gui);
 
 		try {
 			chatRoom.addParticipant(this.name);
+			chatRoom.getTopics();
+			chatRoom.getParticipants();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
