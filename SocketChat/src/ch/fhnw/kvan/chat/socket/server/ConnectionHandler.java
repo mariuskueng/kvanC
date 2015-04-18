@@ -76,11 +76,15 @@ public class ConnectionHandler implements Runnable {
                 break;
 
             case "get_topics":
-                chat.getTopics();
+                outputStream.println(chat.getTopics());
                 break;
 
             case "get_participants":
-                chat.getParticipants();
+                outputStream.println(chat.getParticipants());
+                break;
+
+            case "get_messages":
+                outputStream.println(chat.getMessages(message.split(";")[1].split("=")[0]));
                 break;
         }
 

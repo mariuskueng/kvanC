@@ -51,7 +51,7 @@ public class ClientMessageSender implements IChatRoom {
 
     @Override
     public String getMessages(String topic) throws IOException {
-        outputStream.println("action=getMessages;topic=" + topic);
+        outputStream.println("action=get_messages;topic=" + topic);
         return "";
     }
 
