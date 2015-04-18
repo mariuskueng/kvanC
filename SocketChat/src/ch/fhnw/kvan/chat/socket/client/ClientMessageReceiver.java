@@ -38,6 +38,10 @@ public class ClientMessageReceiver implements Runnable {
         String action = message.split("=")[0];
         String content = message.split("=")[1];
 
+        if (action == "action") {
+            action = content;
+        }
+
         switch (action) {
             case "name":
                 gui.addParticipant(content);

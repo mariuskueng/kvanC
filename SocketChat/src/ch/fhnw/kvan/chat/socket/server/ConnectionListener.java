@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import org.apache.log4j.Logger;
 
@@ -12,7 +13,7 @@ public class ConnectionListener implements Runnable {
     private Logger logger;
     private ServerSocket serverSocket;
 
-    private List<ConnectionHandler> clientList = new ArrayList<>();
+    private List<ConnectionHandler> clientList = Collections.synchronizedList(new ArrayList<>());
 
     public ConnectionListener(ServerSocket s) {
         this.serverSocket = s;
