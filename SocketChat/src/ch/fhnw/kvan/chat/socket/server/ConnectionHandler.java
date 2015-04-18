@@ -83,5 +83,11 @@ public class ConnectionHandler implements Runnable {
                 chat.getParticipants();
                 break;
         }
+
+        logger.info("Notify all clients -> Message : " + message);
+
+        for (ConnectionHandler each : connections) {
+            each.outputStream.println(message);
+        }
     }
 }
