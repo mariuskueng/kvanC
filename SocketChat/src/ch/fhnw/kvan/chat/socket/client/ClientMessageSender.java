@@ -52,12 +52,19 @@ public class ClientMessageSender implements IChatRoom {
     @Override
     public String getMessages(String topic) throws IOException {
         outputStream.println("action=getMessages;topic=" + topic);
-        return null;
+        return "";
     }
 
     @Override
     public String refresh(String topic) throws IOException {
-        outputStream.println("action=refreshMessages;topic=" + topic);
-        return null;
+        return getMessages(topic);
+    }
+
+    public void getTopics() {
+        outputStream.println("action=get_topics");
+    }
+
+    public void getParticipants() {
+        outputStream.println("action=get_participants");
     }
 }
