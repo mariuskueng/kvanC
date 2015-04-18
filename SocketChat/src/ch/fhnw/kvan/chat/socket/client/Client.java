@@ -50,6 +50,8 @@ public class Client {
 		this.outputStream = new Out(this.socket);
 		this.inputStream = new In(this.socket);
 		this.chatRoom = new ClientMessageSender(this.name, this.outputStream);
+
+		this.gui = new ClientGUI(this.chatRoom, this.name);
 		this.clientReceiver = new ClientMessageReceiver(this.inputStream, this.gui);
 
 		try {
