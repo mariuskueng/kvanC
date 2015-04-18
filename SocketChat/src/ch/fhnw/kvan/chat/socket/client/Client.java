@@ -20,10 +20,10 @@ public class Client {
 	private In inputStream;
 	private Socket socket;
 
+	private static Logger logger = Logger.getLogger(Client.class);
+
 	public static void main(String[] args) throws IOException {
-		Logger logger = Logger.getLogger(ClientMessageSender.class);
-		logger.info("Client instance started");
-		
+
 		if (args.length != 3) {
 			throw new IOException("More or less args given.");
 		}
@@ -32,6 +32,7 @@ public class Client {
 			Client client = new Client(args[0], args[1], Integer.parseInt(args[2]));
 
 		} catch (Exception e) {
+			logger.error(e.getMessage());
 			throw new IOException("Missing arguments in client constructor.");
 		}
 		
@@ -61,6 +62,8 @@ public class Client {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+
+		logger.info("Client instance started");
 	}
 
 	public String getName() {

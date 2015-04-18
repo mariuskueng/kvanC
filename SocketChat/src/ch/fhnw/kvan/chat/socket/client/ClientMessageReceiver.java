@@ -10,12 +10,11 @@ public class ClientMessageReceiver implements Runnable {
 
     private In inputStream;
     private ClientGUI gui;
-    private Logger logger;
+    private Logger logger = Logger.getLogger(Client.class);
 
     public ClientMessageReceiver (In inputStream, ClientGUI gui) {
         this.inputStream = inputStream;
         this.gui = gui;
-        this.logger = Logger.getLogger(ClientMessageReceiver.class);
 
         Thread serverListener = new Thread(this);
         serverListener.start();
@@ -69,6 +68,10 @@ public class ClientMessageReceiver implements Runnable {
 
             case "get_participants":
                 gui.updateParticipants(content.split(";"));
+                break;
+
+            case "get_messages":
+                gui.updateMessages(content.split(";")[1].split("="));
                 break;
         }
     }
