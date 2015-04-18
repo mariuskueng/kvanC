@@ -12,7 +12,7 @@ public class ConnectionListener implements Runnable {
     private Logger logger;
     private ServerSocket serverSocket;
 
-    private List<ConnectionListener> clientList = new ArrayList<>();
+    private List<ConnectionHandler> clientList = new ArrayList<>();
 
     public ConnectionListener(ServerSocket s) {
         this.serverSocket = s;
@@ -26,8 +26,8 @@ public class ConnectionListener implements Runnable {
             logger.info("ConnectionListener started...");
             try {
                 s = serverSocket.accept();
-                System.out.println("End serving " + s);
-                s.close();
+                ConnectionHandler connectionHandler = new ConnectionHandler(s, clientList);
+                clientList.add(connectionHandler);
             } catch (IOException e) {
                 e.printStackTrace();
             }
