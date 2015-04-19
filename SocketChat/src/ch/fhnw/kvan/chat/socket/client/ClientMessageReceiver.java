@@ -38,6 +38,7 @@ public class ClientMessageReceiver implements Runnable {
         String content;
 
         try {
+            action = message.split("=")[0];
             content = message.split("=")[1];
         } catch (ArrayIndexOutOfBoundsException e) {
             content = "";
@@ -68,23 +69,27 @@ public class ClientMessageReceiver implements Runnable {
                 gui.addMessage(message.split(";")[0].split("=")[1]);
                 break;
 
-            case "get_topics":
-                String[] topics;
-                try {
-                    topics = message.split("=")[1].split(";");
-                } catch (ArrayIndexOutOfBoundsException e){
-                    topics = null;
-                }
-                gui.updateTopics(topics);
+            case "topics":
+                gui.updateTopics(processActions(message));
                 break;
 
-            case "get_participants":
-                gui.updateParticipants(content.split(";"));
+            case "participants":
+                gui.updateParticipants(processActions(message));
                 break;
 
-            case "get_messages":
-                gui.updateMessages(content.split(";")[1].split("="));
+            case "messages":
+                gui.updateMessages(processActions(message));
                 break;
         }
+    }
+
+    public String[] processActions(String message) {
+        String[] contents;
+        try {
+            contents = message.split("=")[1].split(";");
+        } catch (ArrayIndexOutOfBoundsException e) {
+            contents = new String[0];
+        }
+        return contents;
     }
 }
