@@ -50,9 +50,12 @@ public class ConnectionHandler implements Runnable {
     }
 
     public void processMessage(String message) throws IOException {
-
         String action = message.split("=")[0];
         String content = message.split("=")[1];
+
+        if (action.contains("action")) {
+            action = content;
+        }
 
         switch (action) {
             case "name":

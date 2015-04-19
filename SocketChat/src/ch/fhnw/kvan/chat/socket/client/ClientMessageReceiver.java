@@ -35,9 +35,15 @@ public class ClientMessageReceiver implements Runnable {
 
     public void processMessage(String message) throws IOException {
         String action = message.split("=")[0];
-        String content = message.split("=")[1];
+        String content;
 
-        if (action == "action") {
+        try {
+            content = message.split("=")[1];
+        } catch (ArrayIndexOutOfBoundsException e) {
+            content = "";
+        }
+
+        if (action.contains("action")) {
             action = content;
         }
 
@@ -63,7 +69,13 @@ public class ClientMessageReceiver implements Runnable {
                 break;
 
             case "get_topics":
-                gui.updateTopics(content.split(";"));
+                String[] topics;
+                try {
+                    topics = message.split("=")[1].split(";");
+                } catch (ArrayIndexOutOfBoundsException e){
+                    topics = null;
+                }
+                gui.updateTopics(topics);
                 break;
 
             case "get_participants":
