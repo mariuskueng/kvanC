@@ -78,7 +78,7 @@ public class ConnectionHandler implements Runnable {
                 break;
 
             case "message":
-                chat.addMessage(message.split(";")[0].split("=")[0], message.split(";")[1].split("=")[0]);
+                chat.addMessage(message.split(";")[1].split("=")[1], message.split(";")[0].split("=")[1]);
                 break;
 
             case "get_topics":
@@ -90,7 +90,7 @@ public class ConnectionHandler implements Runnable {
                 break;
 
             case "get_messages":
-                outputStream.println(chat.getMessages(message.split(";")[1].split("=")[0]));
+                outputStream.println(chat.getMessages(message.split(";")[1].split("=")[1]));
                 break;
         }
 

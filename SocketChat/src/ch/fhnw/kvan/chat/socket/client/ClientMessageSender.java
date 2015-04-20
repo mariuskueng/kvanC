@@ -45,7 +45,7 @@ public class ClientMessageSender implements IChatRoom {
 
     @Override
     public boolean addMessage(String topic, String message) throws IOException {
-        outputStream.println("message=" + message + ";topic="+topic);
+        outputStream.println("message=" + message + ";topic=" + topic);
         return true;
     }
 
