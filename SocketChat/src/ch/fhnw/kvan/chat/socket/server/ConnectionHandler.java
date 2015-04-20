@@ -56,6 +56,9 @@ public class ConnectionHandler implements Runnable {
         if (action.contains("action")) {
             action = content;
         }
+        if (action.contains(";")) {
+            action = content.split(";")[0];
+        }
 
         switch (action) {
             case "name":
