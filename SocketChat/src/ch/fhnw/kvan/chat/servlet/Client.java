@@ -47,41 +47,15 @@ public class Client implements IChatRoom {
         this.uri = new URIBuilder().setScheme("http").setHost(this.path).build();
         this.httpClient = HttpClientBuilder.create().build();
 
-//        HttpUriRequest req = new HttpGet(path + "?action=addParticipant&name=alice");
-//        try {
-//            httpClient.execute(req);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
+        HttpUriRequest req = new HttpGet("http://" + path); // + "?action=addParticipant&name=alice");
+        try {
+            httpClient.execute(req);
+        } catch (IOException e) {
+            logger.error(e.getMessage());
+        }
 
-//        String url = "http://" + this.path + "?action=addParticipant&name=" + this.name;
-//        // this.outputStream = new Out(url);
-//        // this.outputStream.print();
-//
-//        URL obj = null;
-//        try {
-//            obj = new URL(url);
-//        } catch (MalformedURLException e) {
-//            e.printStackTrace();
-//        }
-//        try {
-//            HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-//            inputStream = new In(obj);
-//
-//            String inputLine;
-//            StringBuffer response = new StringBuffer();
-//
-//            while ((inputLine = inputStream.readLine()) != null) {
-//                response.append(inputLine);
-//            }
-//            inputStream.close();
-//
-//            //print result
-//            System.out.println(response.toString());
-//
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
+        // this.outputStream = new Out(url);
+        // this.outputStream.print();
 
         logger.info("Client instance started");
     }
