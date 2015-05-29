@@ -9,6 +9,6 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>Server</servlet-name>
-        <url-pattern>/chat/Server/</url-pattern>
+        <url-pattern>/Server</url-pattern>
     </servlet-mapping>
 </web-app>

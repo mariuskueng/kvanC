@@ -4,12 +4,11 @@ import javax.servlet.* ;
 import javax.servlet.http.* ;
 import java.io.IOException;
 import java.io.PrintWriter;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 
 import org.apache.log4j.Logger;
 
-@WebServlet("/chat/Server/")
+
 public class Server extends HttpServlet {
     private static ChatRoom chatRoom = ChatRoom.getInstance();
     private static Logger logger = Logger.getLogger(Server.class);
